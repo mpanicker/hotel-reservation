@@ -34,5 +34,35 @@ public class Reservation {
                 bookingNumber, num_of_rooms, num_of_guest, email);
     }
 
+    public String getBookingNumber() {
+        return bookingNumber;
+    }
 
+    public void setBookingNumber(String bookingNumber) {
+        this.bookingNumber = bookingNumber;
+    }
+
+    public Integer getNum_of_guest() {
+        return num_of_guest;
+    }
+
+    public void setNum_of_guest(Integer num_of_guest) {
+        this.num_of_guest = num_of_guest;
+    }
+
+    public Integer getNum_of_rooms() {
+        return num_of_rooms;
+    }
+
+    public void setNum_of_rooms(Integer num_of_rooms) {
+        this.num_of_rooms = num_of_rooms;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

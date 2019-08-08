@@ -2,6 +2,7 @@ package com.techpro.api.hotelreservation;
 
 import com.techpro.api.hotelreservation.db.ReservationRepository;
 import com.techpro.api.hotelreservation.domain.Reservation;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,17 +40,18 @@ public class HotelReservationApplicationTests {
 	}
 
 	@Test
-	public void findsByBookingNum() {
+	public void findByBookingNum() {
 
 		Reservation result = reservationRepo.findByBookingNumber(firstBooking.bookingNumber);
 
 
-		assertThat(result).extracting("email").isEqualTo(manoj@yahoo.com);
+		//assertThat(result).extracting("email").isEqualTo("manoj@yahoo.com");
+		Assert.assertEquals(result.email,"manoj@yahoo.com");
 	}
 
 
 	@Test
-	public void findsByExample() {
+	public void findByEmail() {
 
 		List<Reservation> result = reservationRepo.findByEmail("manoj@yahoo.com");
 
