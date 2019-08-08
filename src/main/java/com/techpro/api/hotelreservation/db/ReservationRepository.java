@@ -1,5 +1,6 @@
 package com.techpro.api.hotelreservation.db;
 
+import com.techpro.api.hotelreservation.domain.Reservation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
@@ -7,9 +8,9 @@ import java.util.List;
 /**
  * Created by manoj on 8/8/2019.
  */
-public interface ReservationRepository extends MongoRepository<ReservationRepository,String>{
+public interface ReservationRepository extends MongoRepository<Reservation,String>{
 
-    public ReservationRepository findByBookingNumber(String booking_number);
+    public Reservation findByBookingNumber(String bookingNumber);
 
-    public List<ReservationRepository> findByEmail(String email);
+    public List<Reservation> findByEmail(String email);
 }
