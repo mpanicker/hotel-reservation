@@ -1,5 +1,5 @@
 {
-  "booking_number": "1234567",
+  "bookingNumber": "1234567",
   "check_in_date" : "2014-07-07",
   "check_out_date" : "2014-07-09",
   "num_of_guest": 2,

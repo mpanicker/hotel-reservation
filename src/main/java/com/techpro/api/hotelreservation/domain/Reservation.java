@@ -1,5 +1,6 @@
 package com.techpro.api.hotelreservation.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 
 /**
@@ -7,7 +8,10 @@ import org.springframework.data.annotation.Id;
  */
 public class Reservation {
 
+    @JsonIgnore
     @Id
+    public String id;
+
     public String bookingNumber;
 
     public Integer num_of_guest;
@@ -17,10 +21,11 @@ public class Reservation {
     public String email;
 
 
-    public Reservation(Integer num_of_guest, Integer num_of_rooms, String email) {
+    public Reservation(String bookingNumber, Integer num_of_guest, Integer num_of_rooms, String email) {
         this.num_of_guest = num_of_guest;
         this.num_of_rooms = num_of_rooms;
         this.email = email;
+        this.bookingNumber = bookingNumber;
     }
 
     public Reservation(){
@@ -31,8 +36,38 @@ public class Reservation {
     public String toString() {
         return String.format(
                 "Reservation[id=%s, Number of Rooms='%s', Number of Guests='%s', Email ='%s']",
-                bookingNumber, num_of_rooms, num_of_guest, email);
+                id, num_of_rooms, num_of_guest, email);
     }
 
+    public String getBookingNumber() {
+        return bookingNumber;
+    }
 
+    public void setBookingNumber(String bookingNumber) {
+        this.bookingNumber = bookingNumber;
+    }
+
+    public Integer getNum_of_guest() {
+        return num_of_guest;
+    }
+
+    public void setNum_of_guest(Integer num_of_guest) {
+        this.num_of_guest = num_of_guest;
+    }
+
+    public Integer getNum_of_rooms() {
+        return num_of_rooms;
+    }
+
+    public void setNum_of_rooms(Integer num_of_rooms) {
+        this.num_of_rooms = num_of_rooms;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
