@@ -11,6 +11,5 @@ import java.util.List;
 public interface ReservationRepository extends MongoRepository<Reservation,String>{
 
     public Reservation findByBookingNumber(String bookingNumber);
-
     public List<Reservation> findByEmail(String email);
 }

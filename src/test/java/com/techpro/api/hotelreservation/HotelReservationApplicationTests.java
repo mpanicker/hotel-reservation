@@ -2,6 +2,7 @@ package com.techpro.api.hotelreservation;
 
 import com.techpro.api.hotelreservation.db.ReservationRepository;
 import com.techpro.api.hotelreservation.domain.Reservation;
+import com.techpro.api.hotelreservation.util.RandomString;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,27 +28,27 @@ public class HotelReservationApplicationTests {
 
 		reservationRepo.deleteAll();
 
-		firstBooking = reservationRepo.save(new Reservation(2, 3, "manoj@yahoo.com"));
-		secondBooking = reservationRepo.save(new Reservation(4,4,"manoj@yahoo.com"));
+		firstBooking = reservationRepo.save(new Reservation(RandomString.getAlphaNumericString(8), 2, 3, "manoj@yahoo.com"));
+		secondBooking = reservationRepo.save(new Reservation(RandomString.getAlphaNumericString(8),4,4,"manoj@yahoo.com"));
 
 	}
 
 	@Test
 	public void setsIdOnSave() {
 
-		Reservation manoj_reservation = reservationRepo.save(new Reservation(2, 3,"manoj@yahoo.com"));
-		assertThat(manoj_reservation.bookingNumber).isNotNull();
+		Reservation manoj_reservation = reservationRepo.save(new Reservation(RandomString.getAlphaNumericString(8),2, 3,"manoj@yahoo.com"));
+		assertThat(manoj_reservation.id).isNotNull();
 
 	}
 
 	@Test
-	public void findByBookingNum() {
+	public void findById() {
 
-		Reservation result = reservationRepo.findByBookingNumber(firstBooking.bookingNumber);
+		Optional<Reservation> result = reservationRepo.findById(firstBooking.id);
 
 
 		//assertThat(result).extracting("email").isEqualTo("manoj@yahoo.com");
-		Assert.assertEquals(result.email,"manoj@yahoo.com");
+		Assert.assertEquals(result.get().getEmail(),"manoj@yahoo.com");
 	}
 
 
@@ -56,8 +58,16 @@ public class HotelReservationApplicationTests {
 		List<Reservation> result = reservationRepo.findByEmail("manoj@yahoo.com");
 
 		for(Reservation r:result) {
-			System.out.println("Reservation = "+r.toString());
+			Assert.assertEquals(r.getEmail(),"manoj@yahoo.com");
 		}
+	}
+
+	@Test
+	public void findByBookingNumber() {
+
+		Reservation result = reservationRepo.findByBookingNumber(firstBooking.getBookingNumber());
+		Assert.assertEquals(firstBooking.getBookingNumber(),result.getBookingNumber());
+
 	}
 
 }
