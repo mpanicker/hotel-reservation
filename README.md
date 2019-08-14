@@ -23,14 +23,14 @@
         500 Internal Server Error
 
     * **Response Body**
-        * {"booking_number": "1234567"}
+        * See /sample-req-resp/get_reservation_by_id_response.json
 
 2. Update a reservation
     * **Endpoint**
-        *   PUT /api/v1/reservation/{id}
+        *   PUT /api/v1/reservation/{bookingNumber}
 
     * **Request parameters**
-        * booking_number
+        * bookingNumber
 
     * **Request Body**
         * See /sample-req-resp/put_reservation_by_id_request.json
@@ -52,10 +52,10 @@
 
 3. Delete a reservation
     * **Endpoint**
-        *   DELETE /api/v1/reservation/{id}
+        *   DELETE /api/v1/reservation/{bookingNumber}
 
     * **Request parameters**
-        * booking_number
+        * bookingNumber
 
     * **Request Body**
         * None
@@ -100,12 +100,12 @@
     * **Response Body**
         * See /sample-req-resp/get_reservation_by_email_response.json
         
-5. Retrieve a reservation using reservation_id
+5. Retrieve a reservation using booking Number
     * **Endpoint**
-        *   GET /api/v1/reservation/{id}
+        *   GET /api/v1/reservation/{bookingNumber}
 
     * **Request parameters**
-        * booking_number
+        * bookingNumber
 
     * **Request Body**
         * None
