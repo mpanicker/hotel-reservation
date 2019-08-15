@@ -21,10 +21,10 @@ public class ReservationService {
         return r;
     }
 
-/*    public List<Reservation> getReservationEmail(String email){
-        List<Reservation> reservationList = reservationRepo.findByEmail(email);
+    public List<Reservation> getReservationEmail(String email){
+        List<Reservation> reservationList = reservationRepo.findReservationByEmail(email);
         return reservationList;
-    }*/
+    }
 
     public Reservation createNewReservation(Reservation newReservation) {
         String bookingNumber = RandomString.getAlphaNumericString(8);
@@ -61,7 +61,7 @@ public class ReservationService {
             r.setPayment_method(newReservation.getPayment_method());
         }
 
-        if (newReservation.getHotel_details() != null){
+       /* if (newReservation.getHotel_details() != null){
             for(Map.Entry<String, String> entry : newReservation.getHotel_details().entrySet()) {
                 if (entry.getValue() != null) {
                     if(r.getHotel_details().containsKey(entry.getKey())){
@@ -97,7 +97,7 @@ public class ReservationService {
                     r.getPrimary_guest_details().replace(entry.getKey(), entry.getValue());
                 }
             }
-        }
+        }*/
         reservationRepo.save(r);
     }
 
