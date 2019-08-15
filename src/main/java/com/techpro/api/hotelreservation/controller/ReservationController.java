@@ -21,11 +21,11 @@ public class ReservationController {
         return ResponseEntity.ok().body(r);
     }
 
-/*    @GetMapping("/reservation")
+    @GetMapping("/reservation")
     public List<?> getReservationByEmail(@RequestParam final String email){
         List<Reservation> reservationList = reservationService.getReservationEmail(email);
         return reservationList;
-    }*/
+    }
     //change contract email_address
 
     @PostMapping( "/reservation")
