@@ -78,7 +78,13 @@ public class ReservationService {
         if (newReservation.getPayment_details() != null){
             for(Map.Entry<String, String> entry : newReservation.getPayment_details().entrySet()) {
                 if (entry.getValue() != null) {
-                    r.getPayment_details().replace(entry.getKey(), entry.getValue());
+                    if(r.getPayment_details().containsKey(entry.getKey())){
+                        r.getPayment_details().replace(entry.getKey(), entry.getValue());
+                    }
+                    else{
+                        r.getPayment_details().put(entry.getKey(), entry.getValue());
+                    }
+
                 }
             }
         }
@@ -86,7 +92,13 @@ public class ReservationService {
         if (newReservation.getRoom_details() != null){
             for(Map.Entry<String, String> entry : newReservation.getRoom_details().entrySet()) {
                 if (entry.getValue() != null) {
-                    r.getRoom_details().replace(entry.getKey(), entry.getValue());
+                    if(r.getRoom_details().containsKey(entry.getKey())){
+                        r.getRoom_details().replace(entry.getKey(), entry.getValue());
+                    }
+                    else{
+                        r.getRoom_details().put(entry.getKey(), entry.getValue());
+                    }
+
                 }
             }
         }
@@ -94,7 +106,13 @@ public class ReservationService {
         if (newReservation.getPrimary_guest_details() != null){
             for(Map.Entry<String, String> entry : newReservation.getPrimary_guest_details().entrySet()) {
                 if (entry.getValue() != null) {
-                    r.getPrimary_guest_details().replace(entry.getKey(), entry.getValue());
+                    if(r.getPrimary_guest_details().containsKey(entry.getKey())){
+                        r.getPrimary_guest_details().replace(entry.getKey(), entry.getValue());
+                    }
+                    else{
+                        r.getPrimary_guest_details().put(entry.getKey(), entry.getValue());
+                    }
+
                 }
             }
         }
