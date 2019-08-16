@@ -1,13 +1,17 @@
 package com.techpro.api.hotelreservation.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Map;
 
 /**
  * Created by manoj on 8/8/2019.
  */
+
+@Document(collection = "reservation")
 public class Reservation {
 
     @JsonIgnore
@@ -25,14 +29,14 @@ public class Reservation {
     public String reservation_currency;
     public Double reservation_tax;
     public String payment_method;
-    public Map<String, String> hotel_details;
+    public HotelDetails hotelDetails;
 
-    public Map<String, String> payment_details;
+    public PaymentDetails paymentDetails;
 
-    public Map<String, String> room_details;
+    public RoomDetails roomDetails;
 
-    public Map<String, String> primary_guest_details;
-    //End of JSON format
+    public GuestDetails guestDetails;
+
 
 
     public Reservation(String bookingNumber, Integer num_of_guest, Integer num_of_rooms) {
@@ -108,29 +112,36 @@ public class Reservation {
         this.payment_method = payment_method;
     }
 
-    public Map<String, String> getHotel_details() {
-        return hotel_details;
+    public HotelDetails getHotelDetails() {
+        return hotelDetails;
     }
 
-    //handled in ReservationService
-    public void setHotel_details(Map<String, String> hotel_details) {
-        this.hotel_details = hotel_details;
+    public void setHotelDetails(HotelDetails hotelDetails) {
+        this.hotelDetails = hotelDetails;
     }
 
-    public Map<String, String> getPayment_details() {
-        return payment_details;
+    public PaymentDetails getPaymentDetails() {
+        return paymentDetails;
     }
 
-    public void setPayment_details(Map<String, String> payment_details) {
-        this.payment_details = payment_details;
+    public void setPaymentDetails(PaymentDetails paymentDetails) {
+        this.paymentDetails = paymentDetails;
     }
 
-    public Map<String, String> getRoom_details() {
-        return room_details;
+    public RoomDetails getRoomDetails() {
+        return roomDetails;
     }
 
-    public void setRoom_details(Map<String, String> room_details) {
-        this.room_details = room_details;
+    public void setRoomDetails(RoomDetails roomDetails) {
+        this.roomDetails = roomDetails;
+    }
+
+    public GuestDetails getGuestDetails() {
+        return guestDetails;
+    }
+
+    public void setGuestDetails(GuestDetails guestDetails) {
+        this.guestDetails = guestDetails;
     }
 
     public Integer getNum_of_guest() {
@@ -149,11 +160,4 @@ public class Reservation {
         this.num_of_rooms = num_of_rooms;
     }
 
-    public Map<String, String> getPrimary_guest_details() {
-        return primary_guest_details;
-    }
-
-    public void setPrimary_guest_details(Map<String, String> primary_guest_details) {
-        this.primary_guest_details = primary_guest_details;
-    }
 }
