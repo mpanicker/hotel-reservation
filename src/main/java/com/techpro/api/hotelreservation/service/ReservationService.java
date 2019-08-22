@@ -26,6 +26,16 @@ public class ReservationService {
         return reservationList;
     }
 
+    public List<Reservation> getReservationCountry(String country){
+        List<Reservation> reservationList = reservationRepo.findReservationByCountry(country);
+        return reservationList;
+    }
+
+    public List<Reservation> getReservationFullName(String fullName){
+        List<Reservation> reservationList = reservationRepo.findReservationByFull_name(fullName);
+        return reservationList;
+    }
+
     public Reservation createNewReservation(Reservation newReservation) {
         String bookingNumber = RandomString.getAlphaNumericString(8);
         newReservation.setBookingNumber(bookingNumber);
@@ -60,62 +70,18 @@ public class ReservationService {
         if (newReservation.getPayment_method() != null){
             r.setPayment_method(newReservation.getPayment_method());
         }
-
-       /* if (newReservation.getHotel_details() != null){
-            for(Map.Entry<String, String> entry : newReservation.getHotel_details().entrySet()) {
-                if (entry.getValue() != null) {
-                    if(r.getHotel_details().containsKey(entry.getKey())){
-                        r.getHotel_details().replace(entry.getKey(), entry.getValue());
-                    }
-                    else{
-                        r.getHotel_details().put(entry.getKey(), entry.getValue());
-                    }
-
-                }
-            }
+        if (newReservation.getHotelDetails() != null){
+            r.setHotelDetails(newReservation.getHotelDetails());
         }
-
-        if (newReservation.getPayment_details() != null){
-            for(Map.Entry<String, String> entry : newReservation.getPayment_details().entrySet()) {
-                if (entry.getValue() != null) {
-                    if(r.getPayment_details().containsKey(entry.getKey())){
-                        r.getPayment_details().replace(entry.getKey(), entry.getValue());
-                    }
-                    else{
-                        r.getPayment_details().put(entry.getKey(), entry.getValue());
-                    }
-
-                }
-            }
+        if (newReservation.getPaymentDetails() != null){
+            r.setPaymentDetails(newReservation.getPaymentDetails());
         }
-
-        if (newReservation.getRoom_details() != null){
-            for(Map.Entry<String, String> entry : newReservation.getRoom_details().entrySet()) {
-                if (entry.getValue() != null) {
-                    if(r.getRoom_details().containsKey(entry.getKey())){
-                        r.getRoom_details().replace(entry.getKey(), entry.getValue());
-                    }
-                    else{
-                        r.getRoom_details().put(entry.getKey(), entry.getValue());
-                    }
-
-                }
-            }
+        if (newReservation.getRoomDetails() != null){
+            r.setRoomDetails(newReservation.getRoomDetails());
         }
-
-        if (newReservation.getPrimary_guest_details() != null){
-            for(Map.Entry<String, String> entry : newReservation.getPrimary_guest_details().entrySet()) {
-                if (entry.getValue() != null) {
-                    if(r.getPrimary_guest_details().containsKey(entry.getKey())){
-                        r.getPrimary_guest_details().replace(entry.getKey(), entry.getValue());
-                    }
-                    else{
-                        r.getPrimary_guest_details().put(entry.getKey(), entry.getValue());
-                    }
-
-                }
-            }
-        }*/
+        if (newReservation.getGuestDetails() != null){
+            r.setGuestDetails(newReservation.getGuestDetails());
+        }
         reservationRepo.save(r);
     }
 

@@ -2,8 +2,11 @@ package com.techpro.api.hotelreservation.controller;
 
 import com.mongodb.util.JSON;
 import com.techpro.api.hotelreservation.domain.Reservation;
+import com.techpro.api.hotelreservation.exception.ReservationException;
 import com.techpro.api.hotelreservation.service.ReservationService;
+import com.techpro.api.hotelreservation.util.ReservationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,13 +29,30 @@ public class ReservationController {
         List<Reservation> reservationList = reservationService.getReservationEmail(email);
         return reservationList;
     }
-    //change contract email_address
+
+    @GetMapping("/reservation/country")
+    public List<?> getReservationByCountry(@RequestParam final String country) {
+        List<Reservation> reservationList = reservationService.getReservationCountry(country);
+        return reservationList;
+    }
+
+    @GetMapping("/reservation/fullName")
+    public List<?> getReservationByFullName(@RequestParam final String fullName) {
+        List<Reservation> reservationList = reservationService.getReservationFullName(fullName);
+        return reservationList;
+    }
 
     @PostMapping( "/reservation")
     @ResponseBody
-    public Reservation createReservation(@RequestBody Reservation newReservation){
+    public ResponseEntity<?> createReservation(@RequestBody Reservation newReservation){
+        try {
+            ReservationUtil.isReservationValid(newReservation);
+        }
+        catch(ReservationException re){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(re.getJsonMessage());
+        }
         Reservation r = reservationService.createNewReservation(newReservation);
-        return r;
+        return new ResponseEntity<Reservation>(HttpStatus.CREATED);
     }
 
     @PutMapping("/reservation/{bookingNumber}")

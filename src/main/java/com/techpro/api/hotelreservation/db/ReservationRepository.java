@@ -14,8 +14,16 @@ public interface ReservationRepository extends MongoRepository<Reservation,Strin
 
     public Reservation findByBookingNumber(String bookingNumber);
 
+
     @Query("{'guestDetails.email': ?0}")
     public List<Reservation> findReservationByEmail(String email);
+
+    @Query("{'guestDetails.country': ?0}")
+    public List<Reservation> findReservationByCountry(String country);
+
+    @Query("{'guestDetails.full_name': ?0}")
+    public List<Reservation> findReservationByFull_name(String full_name);
+
 
     //public Reservation createNewReservation(Reservation newReservation);
 
