@@ -24,6 +24,9 @@ public interface ReservationRepository extends MongoRepository<Reservation,Strin
     @Query("{'guestDetails.full_name': ?0}")
     public List<Reservation> findReservationByFull_name(String full_name);
 
+    @Query("{'roomDetails.room_id': ?0}")
+    public List<Reservation> findReservationByRoomId(String roomId);
+
 
     //public Reservation createNewReservation(Reservation newReservation);
 

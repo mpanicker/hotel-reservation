@@ -36,6 +36,11 @@ public class ReservationService {
         return reservationList;
     }
 
+    public List<Reservation> getReservationRoomId(String roomId){
+        List<Reservation> reservationList = reservationRepo.findReservationByRoomId(roomId);
+        return reservationList;
+    }
+
     public Reservation createNewReservation(Reservation newReservation) {
         String bookingNumber = RandomString.getAlphaNumericString(8);
         newReservation.setBookingNumber(bookingNumber);
@@ -43,6 +48,7 @@ public class ReservationService {
         return r;
     }
 
+    //Need to fix updating individual detail map items
     public void updateReservation( String bookingNumber, Reservation newReservation){
         Reservation r = reservationRepo.findByBookingNumber(bookingNumber);
 

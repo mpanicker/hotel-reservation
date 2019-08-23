@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -42,6 +43,12 @@ public class ReservationController {
         return reservationList;
     }
 
+    @GetMapping("/reservation/roomId")
+    public List<?> getReservationByRoomId(@RequestParam final String roomId) {
+        List<Reservation> reservationList = reservationService.getReservationRoomId(roomId);
+        return reservationList;
+    }
+
     @PostMapping( "/reservation")
     @ResponseBody
     public ResponseEntity<?> createReservation(@RequestBody Reservation newReservation){
@@ -61,8 +68,16 @@ public class ReservationController {
     }
 
     @DeleteMapping("/reservation/{bookingNumber}")
-    public void deleteReservation(@PathVariable final String bookingNumber) {
-        reservationService.deleteReservation(bookingNumber);
+    public ResponseEntity<?> deleteReservation(@PathVariable final String bookingNumber) {
+        try {
+            reservationService.deleteReservation(bookingNumber);
+        }
+        catch(ReservationException re) {
+            throw new ReservationException("Reservation does not exist", 4003, HttpStatus.BAD_REQUEST);
+            //return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(re.getJsonMessage());
+        }
+
+        return new ResponseEntity<Reservation>(HttpStatus.OK);
     }
 
 }
