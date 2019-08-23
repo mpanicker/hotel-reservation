@@ -63,8 +63,15 @@ public class ReservationController {
     }
 
     @PutMapping("/reservation/{bookingNumber}")
-    public void updateReservation(@PathVariable final String bookingNumber, @RequestBody Reservation newReservation){
+    public ResponseEntity<?> updateReservation(@PathVariable final String bookingNumber, @RequestBody Reservation newReservation){
+        try {
+            ReservationUtil.isReservationValid(newReservation);
+        }
+        catch(ReservationException re){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(re.getJsonMessage());
+        }
         reservationService.updateReservation(bookingNumber, newReservation);
+        return new ResponseEntity<Reservation>(HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/reservation/{bookingNumber}")
