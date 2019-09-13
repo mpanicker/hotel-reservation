@@ -1,30 +1,25 @@
 # Getting Started
 
 ### Reference Documentation
-For further reference, please consider the following sections:
+### to run MongoDB(on Mac)
+1. make sure /data/db exists
+2. sudo mongod
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Web Starter](https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-developing-web-applications)
-* [Spring Data MongoDB](https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-mongodb)
-* [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#production-ready)
-
-### Guides
-The following guides illustrate how to use some features concretely:
-
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
-* [Accessing Data with MongoDB](https://spring.io/guides/gs/accessing-data-mongodb/)
-* [Building a RESTful Web Service with Spring Boot Actuator](https://spring.io/guides/gs/actuator-service/)
 
 ### TO ADD OAuth2 security to any Spring REST API
-1. Add a CorsFilter-Why is this needed?
-2. Add CustomAccessTokenConverter
-3. MethodSecurityConfig- Why is this needed?
-4. OAuth2ResourceServerConfigJwt
+1. git clone the project at  https://github.com/Baeldung/spring-security-oauth
+2. run oauth-authorization-server - the Authorization Server (port = 8081)
+3. to get a auth token
+POST http://localhost:8081/spring-security-oauth-server/oauth/token?username=john&password=123&grant_type=password&client_id=reservation-api-read-client
+Authorization
+Basic Auth
+Username:reservation-api-read-client
+Password:secret 
+4. Use the above token as a Bearer token while invoking reservation api
+5. Run angularjs/oauth-ui-password (port = 8084) to get token using a UI
 
 
-### TO ADD a new client id
+#### TO ADD a new client id
 1. insert into Auth server resources/data.sql
 
 2. Add an entry in OAuth2AuthorizationServerConfigJwt.java
@@ -44,6 +39,23 @@ WebSecurityConfig.java
 3. Add a new client id with read and write access
 4 Add a new end user with USER Role
 5. Add a new end user with ADMIN role
+
+# To build and run using Docker
+1. ./mvnw install dockerfile:build
+
+2. docker run -p 8080:8080 -t hotel-reservation/hotel-reservation:latest
+
+
+
+#API Endpoint
+1. GET localhost:8080/api/v1/reservation/4wBcXGrQ
+
+2. GET localhost:8080/api/v1/reservation?email=m_panicker@yahoo.com
+
+3. localhost:8080/api/v1/reservation?email=joe@techprotech.com
+
+4. 
+
 
 
 
