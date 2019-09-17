@@ -43,8 +43,18 @@ WebSecurityConfig.java
 # To build and run using Docker
 1. ./mvnw install dockerfile:build
 
-2. docker run -p 8080:8080 -t hotel-reservation/hotel-reservation:latest
+2. docker run -p 8080:8080 -t hotel-reservation:latest
 
+# to deploy to AWS ECS
+1. create a personal cli profile either by using aws configure set region us-west-2 --profile personal
+or by editing .aws/credentials file directly
+2. aws ecr get-login --no-include-email --profile personal
+3. copy paste output from previous command(we should get Login Succeeded message)
+4. find the hotet-resevation image id using 'docker images' command
+5. docker tag <image id from previous step>  079580827622.dkr.ecr.us-east-1.amazonaws.com/hotel-reservation
+6. create a ECR repository called hotel-reservation
+7. docker push 079580827622.dkr.ecr.us-east-1.amazonaws.com/hotel-reservation:latest --profile=personal
+8. run ECS wizard(https://aws.amazon.com/getting-started/tutorials/deploy-docker-containers/)
 
 
 #API Endpoint
