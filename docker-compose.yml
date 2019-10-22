@@ -6,6 +6,10 @@ services:
       - "8081:8080"
     depends_on:
       - hk-mongodb
+    links:
+      - hk-mongodb
+    environment:
+      host: http://192.168.99.100
   hk-mongodb:
     container_name: hk-mongodb
     image: mongo:3.6
