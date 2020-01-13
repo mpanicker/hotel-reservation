@@ -4,8 +4,13 @@ import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
+
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.QueryRequest;
+import com.amazonaws.services.dynamodbv2.model.QueryResult;
 import com.techpro.api.hotelreservation.domain.Reservation;
 import org.codehaus.jackson.map.util.ISO8601Utils;
 import org.slf4j.Logger;
@@ -13,10 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by manoj on 1/12/2020.
@@ -28,21 +30,8 @@ public class DynamoDBUtil {
     @Autowired
     DynamoDBMapper dynamoDBMapper;
 
-   /* public static DynamoDBMapper getDynamoDBMapper(String region) {
-
-        return new DynamoDBMapper(getAmazonDynamoDBClient(region));
-    }
-
-    private static AmazonDynamoDB getAmazonDynamoDBClient(String region) {
-
-        return AmazonDynamoDBClientBuilder.standard().withCredentials(awsCredentialsProvider()).withRegion(region)
-                .build();
-    }
-
-    private static AWSCredentialsProvider awsCredentialsProvider() {
-
-        return new DefaultAWSCredentialsProviderChain();
-    }*/
+    @Autowired
+    AmazonDynamoDB amazonDynamoDBClient;
 
     public Reservation saveReservation(Reservation reservation, String region) {
 
@@ -56,38 +45,27 @@ public class DynamoDBUtil {
 
     }
 
-   /* public static void addEntryToSyncTable(List<TagMetadataV2> tags, String region, String syncTableName, String action, MetadataSyncMappingProperties msmp) {
-        Date currentDate = new Date();
-        String isoDateStr = ISO8601Utils.format(currentDate);
+    /*public Reservation getReservationByEmail(String email) {
+        QueryRequest dynamoQueryRequest = new QueryRequest();
 
-        ArrayList<TagMetadataSync> tagMetadataSyncList = new ArrayList();
-        for(TagMetadataV2 tagMetadataV2: tags) {
-            TagMetadataSync tagMetadataSync = new TagMetadataSync();
+        Map<String,String> expressionAttributesNames = new HashMap<>();
+        Map<String, AttributeValue> expressionAttributeValues = new HashMap<>();
 
-            tagMetadataSync.setTagId(tagMetadataV2.getTagId());
-            tagMetadataSync.setActionType(action);
-            tagMetadataSync.setCreatedDay(isoDateStr.substring(0, 10));
-            tagMetadataSync.setSystemName(tagMetadataV2.getSystemName());
+        expressionAttributesNames.put("#email", "email");
 
-            Map<String, String> metadataElement = tagMetadataV2.getMetadataElement();
-            tagMetadataSync.setMetadataElement(metadataElement);
+        expressionAttributeValues.put(":emailValue",new AttributeValue().withS(email));
 
-            tagMetadataSync.setTimestampCreated(isoDateStr);
+        dynamoQueryRequest
+                .withTableName("reservation_db")
+                .withIndexName(passIndexName)
+                .withKeyConditionExpression("#email = :emailValue")
+                .withExpressionAttributeNames(expressionAttributesNames)
+                .withExpressionAttributeValues(expressionAttributeValues)
+                .withConsistentRead(false);
 
-            String qualifiedName = TagMetadataUtil.getQualifiedNameWithMappingInfo(tagMetadataV2, msmp.getqualifiedNameOrder(), msmp.getqualifiedNameConnector(), msmp.getqualifiedNamePrefix());
-            tagMetadataSync.setQualifiedName(qualifiedName);
-
-            tagMetadataSync.setTimestampSynchronized(MvGeneralConstant.MVSYNCTIMESTAMPNOTSYNCED);
-
-            tagMetadataSyncList.add(tagMetadataSync);
-        }
-
-        DynamoDBMapperConfig config = DynamoDBMapperConfig.builder()
-                .withTableNameOverride(DynamoDBMapperConfig.TableNameOverride.withTableNameReplacement(syncTableName))
-                .withBatchWriteRetryStrategy(new DynamoDBMapperConfig.DefaultBatchWriteRetryStrategy())
-                .build();
-
-        ArrayList<TagMetadata> deletePlaceHolder = new ArrayList();
-        List<DynamoDBMapper.FailedBatch> failedBatches = getDynamoDBMapper(region).batchWrite(tagMetadataSyncList, deletePlaceHolder, config);
     }*/
+
+    public Reservation getReservation(String bookingNumber) {
+        return dynamoDBMapper.load(Reservation.class, bookingNumber);
+    }
 }

@@ -29,8 +29,9 @@ public class ReservationService {
     public Reservation createNewReservation(Reservation newReservation) {
         String bookingNumber = RandomString.getAlphaNumericString(8);
         newReservation.setBookingNumber(bookingNumber);
-        Reservation r = reservationRepo.save(newReservation);
-        return r;
+        //Reservation r = reservationRepo.save(newReservation);
+        //return r;
+        return null;
     }
 
     public void updateReservation( String bookingNumber, Reservation newReservation){
@@ -98,11 +99,11 @@ public class ReservationService {
                 }
             }
         }*/
-        reservationRepo.save(r);
+        //reservationRepo.save(r);
     }
 
     public void deleteReservation ( String bookingNumber){
         Reservation r = reservationRepo.findByBookingNumber(bookingNumber);
-        reservationRepo.delete(r);
+        //reservationRepo.delete(r);
     }
 }

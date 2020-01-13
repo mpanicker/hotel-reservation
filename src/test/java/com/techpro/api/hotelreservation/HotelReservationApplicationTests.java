@@ -26,10 +26,10 @@ public class HotelReservationApplicationTests {
 	@Before
 	public void setUp() {
 
-		reservationRepo.deleteAll();
+		//reservationRepo.deleteAll();
 
-		firstBooking = reservationRepo.save(new Reservation(RandomString.getAlphaNumericString(8), 2, 3));
-		secondBooking = reservationRepo.save(new Reservation(RandomString.getAlphaNumericString(8),4,4));
+		//firstBooking = reservationRepo.save(new Reservation(RandomString.getAlphaNumericString(8), 2, 3));
+		//secondBooking = reservationRepo.save(new Reservation(RandomString.getAlphaNumericString(8),4,4));
 
 	}
 

@@ -1,6 +1,6 @@
 package com.techpro.api.hotelreservation.controller;
 
-import com.mongodb.util.JSON;
+//import com.mongodb.util.JSON;
 import com.techpro.api.hotelreservation.domain.Reservation;
 import com.techpro.api.hotelreservation.service.ReservationDynamoService;
 import com.techpro.api.hotelreservation.service.ReservationService;
@@ -21,14 +21,14 @@ public class ReservationController {
     ReservationDynamoService reservationService;
 
     // API - read
-   /* @PreAuthorize("(#oauth2.hasScope('reservation') and #oauth2.hasScope('read')) or hasRole('ADMIN')")
+    //@PreAuthorize("(#oauth2.hasScope('reservation') and #oauth2.hasScope('read')) or hasRole('ADMIN')")
     @GetMapping("/reservation/{bookingNumber}")
     public ResponseEntity<?> getReservationByBookingNumber(@PathVariable final String bookingNumber) {
         Reservation r = reservationService.getReservation(bookingNumber);
         return ResponseEntity.ok().body(r);
     }
 
-    @GetMapping("/reservation")
+    /*@GetMapping("/reservation")
     public List<?> getReservationByEmail(@RequestParam final String email){
         List<Reservation> reservationList = reservationService.getReservationEmail(email);
         return reservationList;

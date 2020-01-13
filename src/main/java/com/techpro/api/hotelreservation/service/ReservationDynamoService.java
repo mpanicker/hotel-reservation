@@ -28,4 +28,14 @@ public class ReservationDynamoService {
         Reservation r = dynamoDBUtil.saveReservation(newReservation,"us-east-1");
         return r;
     }
+
+   /* public Reservation getReservationByEmail(String email) {
+        Reservation r = dynamoDBUtil.getReservationByEmail(email);
+        return r;
+    }*/
+
+    public Reservation getReservation(String bookingNumber) {
+        Reservation r = dynamoDBUtil.getReservation(bookingNumber);
+        return r;
+    }
 }
