@@ -1,5 +1,9 @@
 package com.techpro.api.hotelreservation.domain;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIndexHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.Id;
 
@@ -8,11 +12,12 @@ import java.util.Map;
 /**
  * Created by manoj on 8/8/2019.
  */
+@DynamoDBTable(tableName = "reservation_db")
 public class Reservation {
 
     @JsonIgnore
-    @Id
-    public String id;
+    //@Id
+    //public String id;
 
     public String bookingNumber;
 
@@ -25,13 +30,16 @@ public class Reservation {
     public String reservation_currency;
     public Double reservation_tax;
     public String payment_method;
-    public Map<String, String> hotel_details;
+    public String email;
+    public String dateCreated;
 
-    public Map<String, String> payment_details;
+    public HotelDetails hotelDetails;
 
-    public Map<String, String> room_details;
+    public PaymentDetails paymentDetails;
 
-    public Map<String, String> primary_guest_details;
+    public RoomDetails roomDetails;
+
+    public GuestDetails guestDetails;
     //End of JSON format
 
 
@@ -49,17 +57,29 @@ public class Reservation {
     public String toString() {
         return String.format(
                 "Reservation[id=%s, Number of Rooms='%s', Number of Guests='%s']",
-                id, num_of_rooms, num_of_guest);
+                bookingNumber, num_of_rooms, num_of_guest);
     }
 
+    @DynamoDBHashKey(attributeName = "bookingNumber")
     public String getBookingNumber() {
         return bookingNumber;
+    }
+
+    @DynamoDBAttribute(attributeName = "email")
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = "emailGSI")
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setBookingNumber(String bookingNumber) {
         this.bookingNumber = bookingNumber;
     }
 
+    @DynamoDBAttribute(attributeName = "check_in_date")
     public String getCheck_in_date() {
         return check_in_date;
     }
@@ -68,6 +88,7 @@ public class Reservation {
         this.check_in_date = check_in_date;
     }
 
+    @DynamoDBAttribute(attributeName = "check_out_date")
     public String getCheck_out_date() {
         return check_out_date;
     }
@@ -76,6 +97,7 @@ public class Reservation {
         this.check_out_date = check_out_date;
     }
 
+    @DynamoDBAttribute(attributeName = "reservation_total_price")
     public Double getReservation_total_price() {
         return reservation_total_price;
     }
@@ -84,6 +106,7 @@ public class Reservation {
         this.reservation_total_price = reservation_total_price;
     }
 
+    @DynamoDBAttribute(attributeName = "reservation_currency")
     public String getReservation_currency() {
         return reservation_currency;
     }
@@ -92,6 +115,7 @@ public class Reservation {
         this.reservation_currency = reservation_currency;
     }
 
+    @DynamoDBAttribute(attributeName = "reservation_tax")
     public Double getReservation_tax() {
         return reservation_tax;
     }
@@ -100,6 +124,7 @@ public class Reservation {
         this.reservation_tax = reservation_tax;
     }
 
+    @DynamoDBAttribute(attributeName = "payment_method")
     public String getPayment_method() {
         return payment_method;
     }
@@ -108,31 +133,8 @@ public class Reservation {
         this.payment_method = payment_method;
     }
 
-    public Map<String, String> getHotel_details() {
-        return hotel_details;
-    }
 
-    //handled in ReservationService
-    public void setHotel_details(Map<String, String> hotel_details) {
-        this.hotel_details = hotel_details;
-    }
-
-    public Map<String, String> getPayment_details() {
-        return payment_details;
-    }
-
-    public void setPayment_details(Map<String, String> payment_details) {
-        this.payment_details = payment_details;
-    }
-
-    public Map<String, String> getRoom_details() {
-        return room_details;
-    }
-
-    public void setRoom_details(Map<String, String> room_details) {
-        this.room_details = room_details;
-    }
-
+    @DynamoDBAttribute(attributeName = "num_of_guest")
     public Integer getNum_of_guest() {
         return num_of_guest;
     }
@@ -141,6 +143,7 @@ public class Reservation {
         this.num_of_guest = num_of_guest;
     }
 
+    @DynamoDBAttribute(attributeName = "num_of_rooms")
     public Integer getNum_of_rooms() {
         return num_of_rooms;
     }
@@ -149,11 +152,12 @@ public class Reservation {
         this.num_of_rooms = num_of_rooms;
     }
 
-    public Map<String, String> getPrimary_guest_details() {
-        return primary_guest_details;
+    @DynamoDBAttribute(attributeName = "dateCreated")
+    public String getDateCreated() {
+        return dateCreated;
     }
 
-    public void setPrimary_guest_details(Map<String, String> primary_guest_details) {
-        this.primary_guest_details = primary_guest_details;
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
     }
 }

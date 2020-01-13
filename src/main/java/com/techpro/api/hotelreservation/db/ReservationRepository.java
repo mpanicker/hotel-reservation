@@ -13,11 +13,11 @@ public interface ReservationRepository extends MongoRepository<Reservation,Strin
 
     public Reservation findByBookingNumber(String bookingNumber);
 
-    //public List<Reservation> findByEmail(String email);
+    public List<Reservation> findByEmail(String email);
 
-    //public Reservation createNewReservation(Reservation newReservation);
+    public Reservation createNewReservation(Reservation newReservation);
 
-    //public Reservation createNewReservation(String alphaNumericString, int i, int i1, String s);
+    public Reservation createNewReservation(String alphaNumericString, int i, int i1, String s);
 
     //public void createNewReservation(Reservation r);
 }
@@ -30,7 +30,8 @@ public interface ReservationRepository extends MongoRepository<Reservation,Strin
     }
 }*/
 
-/*abstract class  findByEmail implements ReservationRepository{
+/*
+abstract class  findByEmail implements ReservationRepository{
     @Autowired
     ReservationRepository reservationRepo;
 
@@ -49,7 +50,8 @@ public interface ReservationRepository extends MongoRepository<Reservation,Strin
         return reservationList;
     }
 
-*//*    public static void main(String[] args){
+    public static void main(String[] args){
         findingByEmail(email);
-    }*//*
-}*/
+    }
+}
+*/

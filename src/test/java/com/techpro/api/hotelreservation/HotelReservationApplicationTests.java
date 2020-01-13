@@ -33,15 +33,15 @@ public class HotelReservationApplicationTests {
 
 	}
 
-	@Test
+	/*@Test
 	public void setsIdOnSave() {
 
 		Reservation manoj_reservation = reservationRepo.save(new Reservation(RandomString.getAlphaNumericString(8),2, 3));
 		assertThat(manoj_reservation.id).isNotNull();
 
-	}
+	}*/
 
-	@Test
+	/*@Test
 	public void findById() {
 
 		Optional<Reservation> result = reservationRepo.findById(firstBooking.id);
@@ -49,7 +49,7 @@ public class HotelReservationApplicationTests {
 
 		//assertThat(result).extracting("email").isEqualTo("manoj@yahoo.com");
 		//Assert.assertEquals(result.get().getEmail(),"manoj@yahoo.com");
-	}
+	}*/
 
 
 /*	@Test

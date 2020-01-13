@@ -52,8 +52,8 @@ or by editing .aws/credentials file directly
 3. copy paste output from previous command(we should get Login Succeeded message)
 4. find the hotet-resevation image id using 'docker images' command
 5. docker tag <image id from previous step>  079580827622.dkr.ecr.us-east-1.amazonaws.com/hotel-reservation
-6. create a ECR repository called hotel-reservation
-7. docker push 079580827622.dkr.ecr.us-east-1.amazonaws.com/hotel-reservation:latest --profile=personal
+6. create a ECR repository called hotel-reservation(every image needs a new repo)
+7. docker push 079580827622.dkr.ecr.us-east-1.amazonaws.com/hotel-reservation:latest 
 8. run ECS wizard(https://aws.amazon.com/getting-started/tutorials/deploy-docker-containers/)
 
 
@@ -66,6 +66,11 @@ or by editing .aws/credentials file directly
 
 4. 
 
+# To set up and use DynamoDB as the database (instead of Mongo)
+1. set up aws cli and configure it i.e. run "aws configure" or add aws_access_key_id/aws_secret_access_key in ~/.aws/credentials
+2. Add AWS_PROFILE=<profile name to connect to aws> to your env variables. For IntelliJ , add it through run configuration(the program uses one of a chain of credential providers)
+3. create a table called "reservation_db" in the appropriate aws region with "bookingNumber" as the partition key
+4. 
 
 
 
